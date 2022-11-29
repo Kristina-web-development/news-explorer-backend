@@ -4,7 +4,7 @@ const { ERRORS,getUserIdFromToken } = require('../utils/constants')
 
 
 module.exports.getArticles = (req, res, next) => {
-  const owner = req.user._id;
+  const owner = getUserIdFromToken(req);
   Article.find({ owner })
     .then((articles) => {
       res.send({ data: articles });
@@ -47,7 +47,7 @@ module.exports.deleteArticle = (req, res, next) => {
       throw new ERRORS.NotFoundError('No card found with that id.');
     })
     .then((article) => {
-      if (article.owner.equals(req.user._id)) {
+      if (article.owner.equals(getUserIdFromToken(req))) {
         article.remove(() => res.send({ data: article }));
       } else {
         throw new ERRORS.NotAllowedError(

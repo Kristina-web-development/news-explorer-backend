@@ -1,13 +1,13 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
-const {ERRORS} = require('../utils/constants')
+const {ERRORS, getUserIdFromToken} = require('../utils/constants')
 
 
 const { JWT_SECRET } = require('../utils/config');
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.user._id)
+  User.findById(getUserIdFromToken(req))
     .orFail(() => {
       throw new ERRORS.NotFoundError('User id not found.');
     })
