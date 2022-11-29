@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { limiter } = require('./utils/limiter.js');
 const { requestLogger, errorLogger } = require('./utils/logger');
-const serverErrorHandler = require('./middleware/servererror');
+const serverErrorHandler = require('./middlewares/servererror');
 const { PORT, MONGO_DB } = require('./utils/config');
 const router = require('./routes');
 

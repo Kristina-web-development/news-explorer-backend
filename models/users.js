@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   bookmarks: {
-    type: mongoose.Types.Array,
+    type: [],
     default: []
   }
 });
