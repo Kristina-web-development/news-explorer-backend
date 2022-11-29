@@ -9,12 +9,12 @@ const {
 const {
   articlesValidation,
   articleIdValidation,
-} = require('../middleware/validation');
+} = require('../middlewares/validation');
 
-router.get('/articles', getArticles);
+router.get('/', getArticles);
 
-router.post('/articles', articlesValidation, createArticle);
+router.post('/', articlesValidation, createArticle);
 
-router.delete('/articles/:articleId', articleIdValidation, deleteArticle);
+router.delete('/:articleId', articleIdValidation, deleteArticle);
 
 module.exports = router;

@@ -8,9 +8,9 @@ const allowedUrls = ['/signin','/signup','/home']
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
-  console.log(req)
+
   try {
-    if (req.url.startsWith('/signin') || req.url.startsWith('/signup') ) {
+    if (allowedUrls.includes(req.url)) {
       next();
     } else {
       if (!authorization || !authorization.startsWith('Bearer ')) {

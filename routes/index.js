@@ -7,15 +7,15 @@ const { createUser, login } = require('../controllers/users');
 const {
   loginValidation,
   registerValidation,
-} = require('../middleware/validation');
+} = require('../middlewares/validation');
 
 router.post('/signup', registerValidation, createUser);
 router.post('/signin', loginValidation, login);
 
 router.use(auth);
 
-router.use('/', usersRouter);
-router.use('/', articlesRouter);
+router.use('/users', usersRouter);
+router.use('/articles', articlesRouter);
 
 router.use('*', (req,res,next) => {
   next(new ERRORS.NotFoundError('Requested resource not found'));
