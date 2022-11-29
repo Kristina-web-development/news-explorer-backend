@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const Article = require('../models/article');
-const { ERRORS } = require('../utils/constants')
-// const NotFoundError = require('../errors/notfounderror');
-// const CastError = require('../errors/casterror');
-// const ForbiddenError = require('../errors/forbiddenerror');
+const { ERRORS,getUserIdFromToken } = require('../utils/constants')
+
 
 module.exports.getArticles = (req, res, next) => {
   const owner = req.user._id;
@@ -18,6 +16,7 @@ module.exports.createArticle = (req, res, next) => {
   const {
     keyword, title, text, date, source, link, image,
   } = req.body;
+
   Article.create({
     keyword,
     title,
@@ -26,7 +25,7 @@ module.exports.createArticle = (req, res, next) => {
     source,
     link,
     image,
-    owner: req.user._id,
+    owner: getUserIdFromToken(req),
   })
     .then((article) => {
       if (article) {

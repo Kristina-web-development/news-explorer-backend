@@ -61,10 +61,10 @@ module.exports.login = (req, res, next) => {
           if (!match) {
             throw new ERRORS.AuthorizationError('Incorrect email or password.')
           }
-          const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+          const access_token = jwt.sign({ _id: user._id }, JWT_SECRET, {
             expiresIn: '7d',
           });
-          return res.send({ token });
+          return res.send({ access_token });
         })
         .catch(next);
     })
