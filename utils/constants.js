@@ -1,81 +1,81 @@
-const validator = require('validator');
-const jwt = require('jsonwebtoken');
+// const NOT_FOUND = {"statusCode":404, name: "NotFoundError"},
+// const SERVER_ERROR = {"statusCode":500, name: "ServerError"},
+// const BAD_REQUEST = {"statusCode":400, name: "CastError"},
+// const FORBIDDEN = {"statusCode":403, name: "NotAllowedError"},
+// const UNAUTHORIZED = {"statusCode":401,name: "AuthorizationError"},
+// const CONFLICT = {"statusCode":409, name: "AlreadyExistsError"}
 
-const NOT_FOUND = 404;
-const SERVER_ERROR = 500;
-const BAD_REQUEST = 400;
-const FORBIDDEN = 403;
-const UNAUTHORIZED = 401;
-const CONFLICT = 409;
+// class NotFoundError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = 'NotFoundError';
+//     this.statusCode = NOT_FOUND;
+//   }
+// }
 
-class NotFoundError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'NotFoundError';
-    this.statusCode = NOT_FOUND;
-  }
-}
+// class ServerError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = 'ServerError';
+//     this.statusCode = SERVER_ERROR;
+//   }
+// }
 
-class ServerError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ServerError';
-    this.statusCode = SERVER_ERROR;
-  }
-}
+// class CastError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = 'CastError';
+//     this.statusCode = BAD_REQUEST;
+//   }
+// }
 
-class CastError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'CastError';
-    this.statusCode = BAD_REQUEST;
-  }
-}
+// class ConflictError extends Error {
+//   constructor(message){
+//     super(message);
+//     this.name = "Conflict";
+//     this.statusCode = CONFLICT;
+//   }
+// }
 
-class AuthorizationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'AuthorizationError';
-    this.statusCode = UNAUTHORIZED;
-  }
-}
+// class AuthorizationError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = 'AuthorizationError';
+//     this.statusCode = UNAUTHORIZED;
+//   }
+// }
 
-class NotAllowedError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'NotAllowedError';
-    this.statusCode = FORBIDDEN;
-  }
-}
+// class NotAllowedError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = 'NotAllowedError';
+//     this.statusCode = FORBIDDEN;
+//   }
+// }
 
-class AlreadyExistsError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'AlreadyExistsError';
-    this.statusCode = CONFLICT;
-  }
-}
+// class AlreadyExistsError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = 'AlreadyExistsError';
+//     this.statusCode = CONFLICT;
+//   }
+// }
 
-const ERRORS = {
-  NotFoundError,
-  ServerError,
-  CastError,
-  AuthorizationError,
-  NotAllowedError,
-  AlreadyExistsError,
-};
-
-const errorHandler = (res, err) => {
-  res.status(err.statusCode).send({ message: err.message });
-};
-
-const validateLink = (value, helpers) => (validator.isURL(value) ? value : helpers.error('string.uri'));
-
-const getUserIdFromToken = (req) => jwt.decode(req.headers.authorization.replace('Bearer ', ''))._id;
+// const ERRORS = {
+//   NotFoundError,
+//   ServerError,
+//   CastError,
+//   AuthorizationError,
+//   NotAllowedError,
+//   AlreadyExistsError,
+//   ConflictError
+// };
 
 module.exports = {
-  errorHandler,
-  validateLink,
-  getUserIdFromToken,
-  ERRORS,
+  NOT_FOUND: {"statusCode":404, name: "NotFoundError"},
+  SERVER_ERROR:  {"statusCode":500, name: "ServerError"},
+  BAD_REQUEST: {"statusCode":400, name: "CastError"},
+  FORBIDDEN: {"statusCode":403, name: "NotAllowedError"},
+  UNAUTHORIZED:  {"statusCode":401,name: "AuthorizationError"},
+  CONFLICT:  {"statusCode":409, name: "AlreadyExistsError"}
 };

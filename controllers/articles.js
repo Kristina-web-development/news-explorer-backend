@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Article = require('../models/article');
-const { ERRORS,getUserIdFromToken } = require('../utils/constants')
+const CastError = require('../utils/BadRequestError');
+const NotAllowedError = require('../utils/ForbiddenError');
+const NotFoundError = require('../utils/NotFoundError');
 
 
 module.exports.getArticles = (req, res, next) => {
-  const owner = getUserIdFromToken(req);
-  Article.find({ owner })
+
+  Article.find({ owner: req.user._id })
     .then((articles) => {
       res.send({ data: articles });
     })
@@ -25,7 +27,7 @@ module.exports.createArticle = (req, res, next) => {
     source,
     link,
     image,
-    owner: getUserIdFromToken(req),
+    owner: req.user._id,
   })
     .then((article) => {
       if (article) {
@@ -34,7 +36,7 @@ module.exports.createArticle = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new ERRORS.CastError('Invalid data'));
+        next(new CastError('Invalid data'));
       } else {
         next(err);
       }
@@ -44,13 +46,13 @@ module.exports.createArticle = (req, res, next) => {
 module.exports.deleteArticle = (req, res, next) => {
   Article.findById(mongoose.Types.ObjectId(req.params.articleId))
     .orFail(() => {
-      throw new ERRORS.NotFoundError('No card found with that id.');
+      throw new NotFoundError('No card found with that id.');
     })
     .then((article) => {
-      if (article.owner.equals(getUserIdFromToken(req))) {
+      if (article.owner.equals(req.user._id)) {
         article.remove(() => res.send({ data: article }));
       } else {
-        throw new ERRORS.NotAllowedError(
+        throw new NotAllowedError(
           'Access to the requested resource is forbidden.',
         );
       }
