@@ -1,4 +1,4 @@
-const {FORBIDDEN} = require("./constants");
+const { FORBIDDEN } = require('./constants');
 
 class NotAllowedError extends Error {
   constructor(message) {
@@ -8,5 +8,4 @@ class NotAllowedError extends Error {
   }
 }
 
-module.exports = NotAllowedError
-
+module.exports = NotAllowedError;

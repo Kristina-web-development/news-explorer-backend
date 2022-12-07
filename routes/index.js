@@ -2,7 +2,7 @@ const router = require('express').Router();
 const auth = require('../middlewares/auth');
 const usersRouter = require('./users');
 const articlesRouter = require('./articles');
-const {ERRORS} = require('../utils/constants')
+const { ERRORS } = require('../utils/constants');
 const { createUser, login } = require('../controllers/users');
 const {
   loginValidation,
@@ -17,7 +17,7 @@ router.use(auth);
 router.use('/users', usersRouter);
 router.use('/articles', articlesRouter);
 
-router.use('*', (req,res,next) => {
+router.use('*', (req, res, next) => {
   next(new ERRORS.NotFoundError('Requested resource not found'));
 });
 

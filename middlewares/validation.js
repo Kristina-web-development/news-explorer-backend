@@ -31,7 +31,7 @@ const articlesValidation = celebrate({
     date: Joi.string().required(),
     source: Joi.string().required(),
     link: Joi.string().required().custom(validateLink),
-    image: Joi.string().required().custom(validateLink)
+    image: Joi.string().required().custom(validateLink),
   }),
 });
 

@@ -72,10 +72,10 @@
 // };
 
 module.exports = {
-  NOT_FOUND: {"statusCode":404, name: "NotFoundError"},
-  SERVER_ERROR:  {"statusCode":500, name: "ServerError"},
-  BAD_REQUEST: {"statusCode":400, name: "CastError"},
-  FORBIDDEN: {"statusCode":403, name: "NotAllowedError"},
-  UNAUTHORIZED:  {"statusCode":401,name: "AuthorizationError"},
-  CONFLICT:  {"statusCode":409, name: "AlreadyExistsError"}
+  NOT_FOUND: { statusCode: 404, name: 'NotFoundError' },
+  SERVER_ERROR: { statusCode: 500, name: 'ServerError' },
+  BAD_REQUEST: { statusCode: 400, name: 'CastError' },
+  FORBIDDEN: { statusCode: 403, name: 'NotAllowedError' },
+  UNAUTHORIZED: { statusCode: 401, name: 'AuthorizationError' },
+  CONFLICT: { statusCode: 409, name: 'AlreadyExistsError' },
 };

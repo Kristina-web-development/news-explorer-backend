@@ -1,4 +1,4 @@
-const {UNAUTHORIZED} = require("./constants");
+const { UNAUTHORIZED } = require('./constants');
 
 class AuthorizationError extends Error {
   constructor(message) {
@@ -8,5 +8,4 @@ class AuthorizationError extends Error {
   }
 }
 
-module.exports = AuthorizationError
-
+module.exports = AuthorizationError;

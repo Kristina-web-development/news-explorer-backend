@@ -1,4 +1,4 @@
-const {SERVER_ERROR} = require("./constants");
+const { SERVER_ERROR } = require('./constants');
 
 class ServerError extends Error {
   constructor(message) {
@@ -8,5 +8,4 @@ class ServerError extends Error {
   }
 }
 
-module.exports = ServerError
-
+module.exports = ServerError;

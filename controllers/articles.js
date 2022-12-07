@@ -4,9 +4,7 @@ const CastError = require('../utils/BadRequestError');
 const NotAllowedError = require('../utils/ForbiddenError');
 const NotFoundError = require('../utils/NotFoundError');
 
-
 module.exports.getArticles = (req, res, next) => {
-
   Article.find({ owner: req.user._id })
     .then((articles) => {
       res.send({ data: articles });

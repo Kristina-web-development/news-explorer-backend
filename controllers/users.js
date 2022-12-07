@@ -6,7 +6,6 @@ const ConflictError = require('../utils/ConflictError');
 const CastError = require('../utils/BadRequestError');
 const AuthorizationError = require('../utils/AuthorizationError');
 
-
 const { JWT_SECRET } = require('../utils/config');
 
 module.exports.getUser = (req, res, next) => {
@@ -27,7 +26,7 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     })
       .catch((err) => {
-        if(err.code === 11000){
+        if (err.code === 11000) {
           next(new ConflictError('User with this data already exists'));
         }
         if (err.name === 'ValidationError') {
@@ -59,18 +58,18 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findOne({ email })
     .select('+password')
-    .orFail(() => {throw new AuthorizationError('Incorrect email or password.')})
+    .orFail(() => { throw new AuthorizationError('Incorrect email or password.'); })
     .then((user) => {
       bcrypt
         .compare(password, user.password)
         .then((match) => {
           if (!match) {
-            throw new AuthorizationError('Incorrect email or password.')
+            throw new AuthorizationError('Incorrect email or password.');
           }
-          const access_token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+          const accessToken = jwt.sign({ _id: user._id }, JWT_SECRET, {
             expiresIn: '7d',
           });
-          return res.send({ access_token });
+          return res.send({ access_token: accessToken });
         })
         .catch(next);
     })
