@@ -12,13 +12,13 @@ const {
 router.post('/signup', registerValidation, createUser);
 router.post('/signin', loginValidation, login);
 
-router.use(auth);
+// router.use(auth);
 
-router.use('/users', usersRouter);
+router.use('/users', auth, usersRouter);
 router.use('/articles', articlesRouter);
 
-router.use('*', (req, res, next) => {
-  next(new ERRORS.NotFoundError('Requested resource not found'));
-});
+// router.use('*', (req, res, next) => {
+//   next(new ERRORS.NotFoundError('Requested resource not found'));
+// });
 
 module.exports = router;

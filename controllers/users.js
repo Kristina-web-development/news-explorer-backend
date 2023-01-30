@@ -13,12 +13,13 @@ module.exports.getUser = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('User id not found.');
     })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send({ user }))
     .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
   const { name, email, password } = req.body;
+  console.log(req.body)
   bcrypt.hash(password, 10).then((hash) => {
     User.create({
       name,
@@ -41,7 +42,6 @@ module.exports.createUser = (req, res, next) => {
             id: user._id,
           });
         }
-        throw new CastError('Invalid data.');
       })
       .catch((err) => {
         if (err.name === 'ValidationError') {
@@ -69,7 +69,7 @@ module.exports.login = (req, res, next) => {
           const accessToken = jwt.sign({ _id: user._id }, JWT_SECRET, {
             expiresIn: '7d',
           });
-          return res.send({ access_token: accessToken });
+          return res.send({ access_token: accessToken, user });
         })
         .catch(next);
     })

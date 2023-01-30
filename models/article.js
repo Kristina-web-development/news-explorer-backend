@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require("validator");
 
 const articleSchema = new mongoose.Schema({
   keyword: {
@@ -9,44 +10,44 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  text: {
+  description: {
     type: String,
     required: true,
   },
-  date: {
+  publishedAt: {
     type: String,
     required: true,
   },
   source: {
-    type: String,
-    required: true,
-  },
-  link: {
-    type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm.test(
-          v,
-        );
-      },
+    name: {
+      type: String,
+      required: true,
     },
   },
-  image: {
+  url: {
     type: String,
     required: true,
     validate: {
-      validator(v) {
-        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm.test(
-          v,
-        );
+      validator(url) {
+        return validator.isURL(url);
       },
+      message: "invalid URL",
+    },
+  },
+  urlToImage: {
+    type: String,
+    required: true,
+    validate: {
+      validator(url) {
+        return validator.isURL(url);
+      },
+      message: "invalid URL",
     },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'user',
+    ref: "user",
   },
 });
 

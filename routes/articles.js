@@ -4,17 +4,22 @@ const {
   getArticles,
   createArticle,
   deleteArticle,
+  searchArticles
 } = require('../controllers/articles');
+const auth = require('../middlewares/auth');
 
 const {
   articlesValidation,
   articleIdValidation,
 } = require('../middlewares/validation');
 
-router.get('/', getArticles);
+router.post("/everything", searchArticles);
 
-router.post('/', articlesValidation, createArticle);
 
-router.delete('/:articleId', articleIdValidation, deleteArticle);
+router.get('/', auth, getArticles);
+
+router.post('/', auth, articlesValidation, createArticle);
+
+router.delete('/:articleId', auth, articleIdValidation, deleteArticle);
 
 module.exports = router;

@@ -25,13 +25,8 @@ const loginValidation = celebrate({
 
 const articlesValidation = celebrate({
   body: Joi.object().keys({
-    keyword: Joi.string().required(),
-    title: Joi.string().required(),
-    text: Joi.string().required(),
-    date: Joi.string().required(),
-    source: Joi.string().required(),
-    link: Joi.string().required().custom(validateLink),
-    image: Joi.string().required().custom(validateLink),
+    question: Joi.string().required(),
+    fromDate: Joi.string().required(),
   }),
 });
 
